@@ -1,9 +1,12 @@
 
 
+# Select the API - cronjob works as a batch process
 
 apiVersion: batch/v1
+
 kind: CronJob
 metadata:
+# Follow the naming convention - capital isn't accepted
   name: sre
 spec:
   schedule: "*/1 * * * *"
@@ -15,6 +18,7 @@ spec:
           - name: sre
             image: busybox
             imagePullPolicy: IfNotPresent
+            # This command will override the cmd command
             command:
             - /bin/sh
             - -c
