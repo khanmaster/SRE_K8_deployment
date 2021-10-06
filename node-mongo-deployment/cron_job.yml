@@ -1,0 +1,23 @@
+
+
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sre
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: sre
+            image: busybox
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - date; echo thank you for using cronjob
+
+          restartPolicy: OnFailure
