@@ -96,4 +96,5 @@ kubeconfig: Configured
 - `kubectl create deployment sparta-app --image=image-name --port=80 --replicas=3`
 - Deployment with 3 Pods
 - `kubectl expose deployment sparta-app --type=LoadBalancer`
+- ` kubectl create deployment sparta-app --image=image-name --port=5000`
 - 
