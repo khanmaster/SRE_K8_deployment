@@ -1,4 +1,4 @@
-# Minikube single node Kubernetes cluster set on AWS EC2 18.04 Ubuntu
+# Minikube single node Kubernetes cluster setup on AWS EC2 18.04LTS Ubuntu
 ## Installation of Minikube on EC2 Ubuntu 18.04 LTS
 ### 
 
@@ -7,14 +7,14 @@
 - Instance Type t2.medium
 - Storage 8 GB (gp2)
 - Security Group Name: k8
--  Security Group – SSH, `from you ip/0.0.0.0/0`
+-  Security Group – SSH, `from your ip/0.0.0.0/0`
 - Key Pair Create your own keypair.
 
 #### SSH into EC2 instance
 - Run `sudo apt-get update -y`
 - Run `sudo apt-get upgrade -y`
 
-#### Install kubectl on AWS Linux instance
+#### Install kubectl 
 ```
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 ```
@@ -63,11 +63,13 @@ Server:
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 ```
 - check version`minikube version`
-- Launching minikube
+- `minikube version: v1.23.2`
+#### Launching minikube
 - Change to root user `sudo -i`
 - Start Minikube
--  We are going to use the –vm-driver=none switch. The rationale is we don’t want to install a Hypervisor like VirtualBox on the AWS instance, we just want minikube to run using the host
-- Start command `minikubec start --vm-driver=none`
+-  We are going to use the –vm-driver=none switch.
+-   The rationale is we don’t want to install a Hypervisor like VirtualBox on the AWS instance, we just want minikube to run using the host
+- Start command `minikube start --vm-driver=none`
 - Status check `minikube staus`
 - Expected output
 ```
@@ -80,4 +82,13 @@ kubeconfig: Configured
 ```
 **The default node port(external port) range for Kubernetes is 30000 - 32767**
 - Add this range to you security group to allow public access
-- 
+
+#### Testing  
+- Let's create a pod 
+-  `kubectl run sparta-app --image=ahskhan/eng89_node_prod --port=3000`
+-  Check if it's created and running
+-  `kubectl get pods`
+###### Expose it on public ip
+-  `kubectl expose pod sparta-app --type=NodePort`
+-  check `kubect get svc`
+-  
