@@ -91,4 +91,4 @@ kubeconfig: Configured
 ###### Expose it on public ip
 -  `kubectl expose pod sparta-app --type=NodePort`
 -  check `kubect get svc`
--  
+  
