@@ -95,6 +95,106 @@ kubeconfig: Configured
 ### Highly Available and Scalable Deployment
 - `kubectl create deployment sparta-app --image=image-name --port=80 --replicas=3`
 - Deployment with 3 Pods
+```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2021-10-20T14:45:04Z"
+  generation: 1
+  labels:
+    app: k8-app
+  name: k8-app
+  namespace: default
+  resourceVersion: "4824"
+  uid: e6f7de78-19e5-4262-b62c-ebdce4d4677d
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: k8-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: k8-app
+    spec:
+      containers:
+      - image: ahskhan/k8-app
+        imagePullPolicy: Always
+        name: k8-app
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2021-10-20T14:45:07Z"
+    lastUpdateTime: "2021-10-20T14:45:07Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2021-10-20T14:45:04Z"
+    lastUpdateTime: "2021-10-20T14:45:07Z"
+    message: ReplicaSet "k8-app-648685dfd" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
+
+```
 - `kubectl expose deployment sparta-app --type=LoadBalancer`
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2021-10-20T14:45:23Z"
+  labels:
+    app: k8-app
+  name: k8-app
+  namespace: default
+  resourceVersion: "4839"
+  uid: 91d66648-6de1-438f-94c1-42e92cbb1763
+spec:
+  clusterIP: 10.99.60.4
+  clusterIPs:
+  - 10.99.60.4
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 31474
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: k8-app
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+```
 - ` kubectl create deployment sparta-app --image=image-name --port=5000`
-- 
+  
