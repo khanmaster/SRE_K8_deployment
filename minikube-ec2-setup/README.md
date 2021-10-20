@@ -91,4 +91,9 @@ kubeconfig: Configured
 ###### Expose it on public ip
 -  `kubectl expose pod sparta-app --type=NodePort`
 -  check `kubect get svc`
-  
+
+### Highly Available and Scalable Deployment
+- `kubectl create deployment sparta-app --image=image-name --port=80 --replicas=3`
+- Deployment with 3 Pods
+- `kubectl expose deployment sparta-app --type=LoadBalancer`
+- 
