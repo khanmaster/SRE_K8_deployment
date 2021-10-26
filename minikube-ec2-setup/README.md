@@ -24,6 +24,7 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s htt
 
 #### Moving onto installing Docker
 - `sudo apt-get update && sudo apt-get install docker.io -y`
+- `docker run -d -p 3000:5000 ahskhan/k8-app`
 
 - Check docker installation `docker version`
 ```
