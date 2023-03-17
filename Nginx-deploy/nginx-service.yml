@@ -5,18 +5,19 @@ kind: Service
 # Metadata for name
 metadata:  
   name: nginx-svc
-  namespace: default  
+  namespace: default # sre  
 # Specificaition to include ports Selector to connecto to the deployment
 spec:  
   ports:
-  - nodePort: 30442
+  - nodePort: 30001 # range is 30000-32768
     port: 80
-    protocol: TCP
+    
+    
     targetPort: 80
 
 # Let's define the selector and label to connect to nginx deployment
   selector:
     app: nginx # this label connects this service to deployment
   
-  # Creating LoadBalancer type of deployment
-  type: LoadBalancer 
+  # Creating NodePort type of deployment
+  type: NodePort # also use LoadBalancer -  for local use cluster IP 

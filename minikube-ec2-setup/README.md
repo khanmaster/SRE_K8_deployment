@@ -198,4 +198,5 @@ status:
   loadBalancer: {}
 ```
 - ` kubectl create deployment sparta-app --image=image-name --port=5000`
-  
+- `kubectl expose deploy sre-test --type=NodePort --port=80 --target-port=80`
+- `kubectl create deployment sre-test --image=borobongo/docker-northwind-api:localhost --replicas=3`

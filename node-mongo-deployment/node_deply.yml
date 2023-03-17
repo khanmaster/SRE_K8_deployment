@@ -29,12 +29,12 @@ spec:
           
           ports:
             - containerPort: 3000
-          #env:
-           # - name: DB_HOST
-            #  value: mongodb://mongo:27017/posts
+         # env:
+          #  - name: DB_HOST
+           #   value: mongodb://10.98.134.193:27017/posts
           
           imagePullPolicy: Always
-
+# add resources required 
           resources:
             limits:
               memory: 512Mi

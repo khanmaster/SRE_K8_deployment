@@ -1,3 +1,19 @@
+
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-db
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256Mi
+
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -7,7 +23,7 @@ spec:
   selector:
     matchLabels:
       app: mongo
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:
@@ -25,3 +41,31 @@ spec:
         - name: storage
           persistentVolumeClaim:
             claimName: mongo-db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+spec:
+  selector:
+    app: mongo
+  ports:
+    - port: 27017
+      targetPort: 27017
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler #(hpa)
+
+metadata:
+  name: sparta-mongo-db-deploy
+  namespace: default
+  
+spec:
+  maxReplicas: 9 #(max nuber of instances/pods)
+  minReplicas: 3 #(min nuber of instances/pods)
+  scaleTargetRef: # Targets the node deployment
+    apiVersion: apps/v1
+    kind: Deployment
+    name: mongo
+  targetCPUUtilizationPercentage: 50  # 50% of CPU use
+  

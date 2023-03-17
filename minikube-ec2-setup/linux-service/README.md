@@ -41,3 +41,20 @@ nano shahrukh_srv.service
 docker run --name=k8 -d -p 5000:5000 ahskhan/k8-app
 docker run --name=sparta-nginx -d -p 3000:80 ahskhan/nginx-app:v4
 ```
+
+```bash
+#!/bin/bash
+#db needs to exit before creating the DB_HOST
+# if DB_HOST exists do not create
+# else create DB_HOST=db-ip
+# if npm == "running":
+
+# google duck.dns to pull ip of any ec2
+
+    kill pm2 all
+sudo apt update -y
+sudo apt install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+echo "<h1>DevOps tomcat testing with user-data from $(hostname -f)</h1>" > /var/www/html/index.html
+```

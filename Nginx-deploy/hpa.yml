@@ -1,8 +1,3 @@
-# Create a file called node_hpa.yml
-# Create an Autoscaling group for our node app
-
-
-
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler #(hpa)
 
@@ -16,5 +11,5 @@ spec:
   scaleTargetRef: # Targets the node deployment
     apiVersion: apps/v1
     kind: Deployment
-    name: node
+    name: nginx-deployment
   targetCPUUtilizationPercentage: 50  # 50% of CPU use

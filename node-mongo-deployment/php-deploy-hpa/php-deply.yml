@@ -23,18 +23,62 @@ spec:
           requests:
             cpu: 200m
 ---
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
 apiVersion: v1
 kind: Service
 metadata:
-  name: php-apache
   labels:
     run: php-apache
+  name: php-apache
+  namespace: default
 spec:
+  # clusterIP: 10.100.36.153
+  # clusterIPs:
+  # - 10.100.36.153
+  # externalTrafficPolicy: Cluster
+  # ipFamilies:
+  # - IPv4
+  # ipFamilyPolicy: SingleStack
   ports:
-  - port: 80
+  - nodePort: 32566
+    port: 80
+    protocol: TCP
+    targetPort: 80
   selector:
     run: php-apache
+  type: NodePort
+
+
+
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: php-apache
+#   labels:
+#     run: php-apache
+# spec:
+#   ports:
+#   - port: 80
+#   selector:
+#     run: php-apache
+
+
+
+
+
+
+
+
+
+
+
 # kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
 # kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 # kubectl get hpa
 # https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
+
+
