@@ -2,6 +2,9 @@
 # Create deploy and service for mongo
 # create Persistent volume and PVC to claim storage
 # connect the app to db
+![](https://github.com/khanmaster/SRE_K8_deployment/blob/main/k8.png)
+
+
 https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#-em-undo-em-
 
 kubectl create php-apache --image=gcr.io/google containers/hpa-example --requests=cpu=500m memory=500M --expose --port=80
